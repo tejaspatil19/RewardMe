@@ -87,6 +87,7 @@ RewardMe/
 ├── .gitignore
 └── README.md
 
+<img width="1070" height="844" alt="Screenshots1" src="https://github.com/user-attachments/assets/76703704-64d7-4ff9-b145-07e90b8f49b5" />
 
 
 
