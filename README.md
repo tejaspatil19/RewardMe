@@ -7,7 +7,7 @@ A comprehensive React.js application for managing and displaying customer reward
 
 RewardMe is a customer rewards program dashboard that helps retailers track and manage customer loyalty points. The application processes transaction data and calculates reward points based on purchase amounts, displaying the results in user-friendly tables with advanced filtering and sorting capabilities.
 
-Actual Output ScreenShot :-
+Actual Output :-
 
 ![App Screenshot](public/docs/Screenshots1.png)
 
