@@ -1,14 +1,11 @@
-/**
- * API service for fetching data from the JSON server
- */
+
 
 import axios from 'axios';
+import logger from '../utils/logger';
 
 const BASE_URL = 'http://localhost:3001';
 
-/**
- * Create axios instance with base configuration
- */
+
 const api = axios.create({
   baseURL: BASE_URL,
   timeout: 10000,
@@ -24,9 +21,10 @@ const api = axios.create({
 export const fetchTransactions = async () => {
   try {
     const response = await api.get('/transactions');
+    logger.apiCall('get', '/transactions', response);
     return response.data;
   } catch (error) {
-    console.error('Error fetching transactions:', error);
+    logger.error('Error fetching transactions', error);
     throw new Error('Failed to fetch transactions. Please check if the server is running.');
   }
 };
@@ -38,10 +36,11 @@ export const fetchTransactions = async () => {
 export const fetchCustomers = async () => {
   try {
     const response = await api.get('/customers');
+    logger.apiCall('get', '/customers', response);
     return response.data;
   } catch (error) {
-    console.error('Error fetching customers:', error);
-    throw new Error('Failed to fetch customers. Please check if the server is running.');
+  logger.error('Error fetching customers', error);
+  throw new Error('Failed to fetch customers. Please check if the server is running.');
   }
 };
 
@@ -53,10 +52,11 @@ export const fetchCustomers = async () => {
 export const fetchTransactionsByCustomer = async (customerId) => {
   try {
     const response = await api.get(`/transactions?customerId=${customerId}`);
+    logger.apiCall('get', `/transactions?customerId=${customerId}`, response);
     return response.data;
   } catch (error) {
-    console.error('Error fetching transactions by customer:', error);
-    throw new Error('Failed to fetch customer transactions.');
+  logger.error('Error fetching transactions by customer', error);
+  throw new Error('Failed to fetch customer transactions.');
   }
 };
 
@@ -66,10 +66,12 @@ export const fetchTransactionsByCustomer = async (customerId) => {
  */
 export const checkServerHealth = async () => {
   try {
-    await api.get('/transactions?_limit=1');
+    const response = await api.get('/transactions?_limit=1');
+    logger.apiCall('get', '/transactions?_limit=1', response);
     return true;
   } catch (error) {
-    return false;
+  logger.error('Server health check failed', error);
+  return false;
   }
 };
 

@@ -21,11 +21,11 @@ const TransactionsTable = ({ data, isLoading, error }) => {
       className: 'date',
       render: (value) => {
         const date = new Date(value);
-        return date.toLocaleDateString('en-US', {
-          year: 'numeric',
-          month: 'short',
-          day: 'numeric'
-        });
+        
+        const month = date.toLocaleString('en-US', { month: 'short' });
+        const day = String(date.getDate()).padStart(2, '0');
+        const year = date.getFullYear();
+        return `${month} ${day}, ${year}`;
       }
     },
     {

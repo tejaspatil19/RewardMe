@@ -1,0 +1,108 @@
+{
+  "transactions": [
+    {
+      "id": "TXN1003",
+      "customerId": "CUST003",
+      "customerName": "Michael Brown",
+      "purchaseDate": "2025-03-05",
+      "productPurchased": "Clothing - Suit",
+      "price": 350.00,
+      "rewardPoints": 550
+    },
+    {
+      "id": "TXN1004",
+      "customerId": "CUST004",
+      "customerName": "Emily Davis",
+      "purchaseDate": "2025-04-22",
+      "productPurchased": "Books - Science Fiction",
+      "price": 65.00,
+      "rewardPoints": 15
+    },
+    {
+      "id": "TXN1005",
+      "customerId": "CUST005",
+      "customerName": "David Wilson",
+      "purchaseDate": "2025-05-30",
+      "productPurchased": "Automotive - Tires",
+      "price": 480.00,
+      "rewardPoints": 810
+    },
+    {
+      "id": "TXN1006",
+      "customerId": "CUST001",
+      "customerName": "John Smith",
+      "purchaseDate": "2025-03-18",
+      "productPurchased": "Electronics - Smartwatch",
+      "price": 199.99,
+      "rewardPoints": 249
+    },
+    {
+      "id": "TXN1007",
+      "customerId": "CUST002",
+      "customerName": "Sarah Johnson",
+      "purchaseDate": "2025-04-10",
+      "productPurchased": "Home & Garden - Patio Set",
+      "price": 420.00,
+      "rewardPoints": 690
+    },
+    {
+      "id": "TXN1008",
+      "customerId": "CUST003",
+      "customerName": "Michael Brown",
+      "purchaseDate": "2025-05-12",
+      "productPurchased": "Clothing - Shoes",
+      "price": 85.00,
+      "rewardPoints": 35
+    },
+    {
+      "id": "TXN1009",
+      "customerId": "CUST004",
+      "customerName": "Emily Davis",
+      "purchaseDate": "2025-03-27",
+      "productPurchased": "Books - Nonfiction",
+      "price": 55.00,
+      "rewardPoints": 5
+    },
+    {
+      "id": "TXN1010",
+      "customerId": "CUST005",
+      "customerName": "David Wilson",
+      "purchaseDate": "2025-04-30",
+      "productPurchased": "Automotive - Oil Change",
+      "price": 60.00,
+      "rewardPoints": 10
+    }
+  ],
+  "customers": [
+    {
+      "id": "CUST001",
+      "name": "John Smith",
+      "email": "john.smith@email.com",
+      "joinDate": "2023-01-15"
+    },
+    {
+      "id": "CUST002",
+      "name": "Sarah Johnson",
+      "email": "sarah.johnson@email.com",
+      "joinDate": "2023-03-22"
+    },
+    {
+      "id": "CUST003",
+      "name": "Michael Brown",
+      "email": "michael.brown@email.com",
+      "joinDate": "2023-05-10"
+    },
+    {
+      "id": "CUST004",
+      "name": "Emily Davis",
+      "email": "emily.davis@email.com",
+      "joinDate": "2023-07-18"
+    },
+    {
+      "id": "CUST005",
+      "name": "David Wilson",
+      "email": "david.wilson@email.com",
+      "joinDate": "2023-09-05"
+    }
+  ]
+}

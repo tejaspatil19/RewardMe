@@ -1,8 +1,5 @@
-/**
- * Test utilities for testing reward calculations and components
- */
 
-// Mock transaction data for testing
+
 export const mockTransactions = [
   {
     id: 'TEST001',
@@ -51,7 +48,7 @@ export const mockApiResponses = {
   }
 };
 
-// Test data for edge cases
+
 export const edgeTestCases = [
   { price: 0, expectedPoints: 0, description: 'Zero purchase' },
   { price: 49.99, expectedPoints: 0, description: 'Just under $50' },
@@ -65,7 +62,7 @@ export const edgeTestCases = [
   { price: 150.50, expectedPoints: 151, description: 'Decimal price calculation' }
 ];
 
-// Helper function to create test transactions
+
 export const createTestTransaction = (overrides = {}) => ({
   id: 'TEST_DEFAULT',
   customerId: 'CUST_DEFAULT',
@@ -77,7 +74,7 @@ export const createTestTransaction = (overrides = {}) => ({
   ...overrides
 });
 
-// Helper function to create multiple test transactions
+
 export const createTestTransactions = (count = 3, baseTransaction = {}) => {
   return Array.from({ length: count }, (_, index) =>
     createTestTransaction({

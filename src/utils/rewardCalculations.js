@@ -1,7 +1,4 @@
-/**
- * Utility functions for calculating reward points and processing transaction data
- * All functions are pure and avoid mutations
- */
+
 
 /**
  * Calculate reward points for a given purchase amount
@@ -105,7 +102,7 @@ export const calculateMonthlyRewards = (transactions) => {
   
   return Object.values(monthlyRewards)
     .sort((a, b) => {
-      // Sort by year, then month, then customer name
+     
       if (a.year !== b.year) return b.year - a.year;
       if (a.month !== b.month) {
         const monthOrder = ['January', 'February', 'March', 'April', 'May', 'June',

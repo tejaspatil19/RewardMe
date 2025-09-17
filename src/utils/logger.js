@@ -1,7 +1,4 @@
-/**
- * Logger utility for the application
- * Configurable logging levels and formatting
- */
+
 
 const LOG_LEVELS = {
   ERROR: 0,

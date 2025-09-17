@@ -1,10 +1,11 @@
-/**
- * Reusable Table component with filtering and sorting capabilities
- */
+
 
 import React, { useState, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import './Table.css';
+
+
+const ROWS_PER_PAGE = 5;
 
 const Table = ({ 
   data, 
@@ -18,11 +19,11 @@ const Table = ({
 }) => {
   const [filterText, setFilterText] = useState('');
   const [sortConfig, setSortConfig] = useState({ key: null, direction: 'asc' });
+  const [currentPage, setCurrentPage] = useState(1);
 
-  // Filter data based on search text
+
   const filteredData = useMemo(() => {
     if (!filterText.trim()) return data;
-    
     return data.filter(item =>
       columns.some(column => {
         const value = item[column.key];
@@ -31,27 +32,28 @@ const Table = ({
     );
   }, [data, filterText, columns]);
 
-  // Sort filtered data
+  
+  React.useEffect(() => {
+    setCurrentPage(1);
+  }, [filterText]);
+
+
+
   const sortedData = useMemo(() => {
     if (!sortConfig.key) return filteredData;
-
     return [...filteredData].sort((a, b) => {
       const aValue = a[sortConfig.key];
       const bValue = b[sortConfig.key];
-
-      // Handle different data types
+     
       if (typeof aValue === 'number' && typeof bValue === 'number') {
         return sortConfig.direction === 'asc' ? aValue - bValue : bValue - aValue;
       }
-
       if (aValue instanceof Date && bValue instanceof Date) {
         return sortConfig.direction === 'asc' ? aValue - bValue : bValue - aValue;
       }
-
-      // String comparison
+      
       const aStr = aValue ? aValue.toString().toLowerCase() : '';
       const bStr = bValue ? bValue.toString().toLowerCase() : '';
-      
       if (sortConfig.direction === 'asc') {
         return aStr.localeCompare(bStr);
       } else {
@@ -60,7 +62,14 @@ const Table = ({
     });
   }, [filteredData, sortConfig]);
 
-  // Handle sort column click
+  
+  const totalPages = Math.ceil(sortedData.length / ROWS_PER_PAGE) || 1;
+  const paginatedData = useMemo(() => {
+    const startIdx = (currentPage - 1) * ROWS_PER_PAGE;
+    return sortedData.slice(startIdx, startIdx + ROWS_PER_PAGE);
+  }, [sortedData, currentPage]);
+
+
   const handleSort = (columnKey) => {
     if (!enableSort) return;
 
@@ -70,10 +79,14 @@ const Table = ({
     }));
   };
 
-  // Get sort indicator for column header
+  
   const getSortIndicator = (columnKey) => {
-    if (!enableSort || sortConfig.key !== columnKey) return null;
-    return sortConfig.direction === 'asc' ? ' ↑' : ' ↓';
+    if (!enableSort) return null;
+    if (sortConfig.key === columnKey) {
+      return sortConfig.direction === 'asc' ? ' ▲' : ' ▼';
+    }
+   
+    return ' ⇅';
   };
 
   if (error) {
@@ -125,9 +138,11 @@ const Table = ({
                     <th
                       key={column.key}
                       onClick={() => handleSort(column.key)}
-                      className={`${enableSort ? 'sortable' : ''} ${
-                        sortConfig.key === column.key ? 'sorted' : ''
-                      }`}
+                      className={[
+                        enableSort ? 'sortable' : '',
+                        sortConfig.key === column.key ? 'sorted' : '',
+                        column.className || ''
+                      ].join(' ').trim()}
                       title={enableSort ? 'Click to sort' : ''}
                     >
                       {column.label}
@@ -137,8 +152,8 @@ const Table = ({
                 </tr>
               </thead>
               <tbody>
-                {sortedData.length > 0 ? (
-                  sortedData.map((item, index) => (
+                {paginatedData.length > 0 ? (
+                  paginatedData.map((item, index) => (
                     <tr key={item.id || index}>
                       {columns.map(column => (
                         <td key={column.key} className={column.className || ''}>
@@ -159,6 +174,26 @@ const Table = ({
                 )}
               </tbody>
             </table>
+          </div>
+          {/* Pagination Controls */}
+          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', margin: '16px 0' }}>
+            <button
+              onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
+              disabled={currentPage === 1}
+              style={{ marginRight: 8 }}
+            >
+              Previous
+            </button>
+            <span style={{ margin: '0 8px' }}>
+              Page {currentPage} of {totalPages}
+            </span>
+            <button
+              onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
+              disabled={currentPage === totalPages}
+              style={{ marginLeft: 8 }}
+            >
+              Next
+            </button>
           </div>
         </>
       )}

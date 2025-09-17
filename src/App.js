@@ -1,7 +1,4 @@
-/**
- * Main App Component
- * Customer Rewards Program Dashboard
- */
+
 
 import { useState, useEffect, useCallback } from 'react';
 import Header from './components/Header/Header';
@@ -20,7 +17,7 @@ import logger from './utils/logger';
 import './App.css';
 
 const App = () => {
-  // Application state
+
   const [transactions, setTransactions] = useState([]);
   const [monthlyRewards, setMonthlyRewards] = useState([]);
   const [totalRewards, setTotalRewards] = useState([]);
@@ -28,7 +25,7 @@ const App = () => {
   const [error, setError] = useState(null);
   const [serverStatus, setServerStatus] = useState(false);
 
-  // Check server health
+
   const checkServer = useCallback(async () => {
     try {
       const isHealthy = await checkServerHealth();
@@ -40,7 +37,7 @@ const App = () => {
     }
   }, []);
 
-  // Load data from API and process calculations
+
   const loadData = useCallback(async () => {
     try {
       setIsLoading(true);
@@ -49,27 +46,27 @@ const App = () => {
 
       logger.info('Starting data load process');
 
-      // Check server health first
+
       const isServerHealthy = await checkServer();
       if (!isServerHealthy) {
         throw new Error('Unable to connect to the server. Please ensure the JSON server is running on port 3001.');
       }
 
-      // Fetch transactions
+
       const transactionsData = await fetchTransactions();
       logger.info('Transactions fetched successfully', { count: transactionsData.length });
 
-      // Process transactions with calculated reward points
+
       const processedTransactions = processTransactions(transactionsData);
-      
-      // Sort transactions by date (newest first)
+
+
       const sortedTransactions = sortTransactionsByDate(processedTransactions);
 
-      // Calculate monthly and total rewards
+
       const monthlyData = calculateMonthlyRewards(processedTransactions);
       const totalData = calculateTotalRewards(processedTransactions);
 
-      // Update state
+
       setTransactions(sortedTransactions);
       setMonthlyRewards(monthlyData);
       setTotalRewards(totalData);
@@ -86,13 +83,13 @@ const App = () => {
     }
   }, [checkServer]);
 
-  // Initialize app
+
   useEffect(() => {
     logger.info('App component mounted');
     loadData();
 
-    // Set up periodic server health checks
-    const healthCheckInterval = setInterval(checkServer, 30000); // Check every 30 seconds
+
+    const healthCheckInterval = setInterval(checkServer, 30000);
 
     return () => {
       clearInterval(healthCheckInterval);
@@ -100,13 +97,40 @@ const App = () => {
     };
   }, [loadData, checkServer]);
 
-  // Retry data loading
+
   const handleRetry = () => {
     logger.info('Retrying data load');
     loadData();
   };
 
-  // Render error state if there's a critical error
+
+
+
+  const renderMonthlyRewardsTable = useCallback(() => (
+    <MonthlyRewardsTable
+      data={monthlyRewards}
+      isLoading={isLoading}
+      error={error}
+    />
+  ), [monthlyRewards, isLoading, error]);
+
+  const renderTotalRewardsTable = useCallback(() => (
+    <TotalRewardsTable
+      data={totalRewards}
+      isLoading={isLoading}
+      error={error}
+    />
+  ), [totalRewards, isLoading, error]);
+
+  const renderTransactionsTable = useCallback(() => (
+    <TransactionsTable
+      data={transactions}
+      isLoading={isLoading}
+      error={error}
+    />
+  ), [transactions, isLoading, error]);
+
+
   if (error) {
     return (
       <div className="App">
@@ -117,14 +141,14 @@ const App = () => {
               <div className="error-content">
                 <h3>Unable to Load Data</h3>
                 <p>{error}</p>
-                <button 
+                <button
                   onClick={handleRetry}
                   className="retry-button"
                   type="button"
                 >
                   Retry Loading
                 </button>
-                
+
                 <div className="server-help">
                   <p><strong>To start the JSON server:</strong></p>
                   <code>npm run start:server</code>
@@ -142,38 +166,22 @@ const App = () => {
   return (
     <div className="App">
       <Header serverStatus={serverStatus} />
-      
       <main className="main-content">
         <div className="container">
           {/* Monthly Rewards Table */}
           <section className="dashboard-section">
-            <MonthlyRewardsTable
-              data={monthlyRewards}
-              isLoading={isLoading}
-              error={error}
-            />
+            {renderMonthlyRewardsTable()}
           </section>
-
           {/* Total Rewards Table */}
           <section className="dashboard-section">
-            <TotalRewardsTable
-              data={totalRewards}
-              isLoading={isLoading}
-              error={error}
-            />
+            {renderTotalRewardsTable()}
           </section>
-
           {/* Transactions Table */}
           <section className="dashboard-section">
-            <TransactionsTable
-              data={transactions}
-              isLoading={isLoading}
-              error={error}
-            />
+            {renderTransactionsTable()}
           </section>
         </div>
       </main>
-      
       <Footer />
     </div>
   );

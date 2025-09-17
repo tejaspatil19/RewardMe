@@ -1,10 +1,12 @@
 /* Table Styles */
+
 .table-container {
   margin: 20px 0;
   background: #ffffff;
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   overflow: hidden;
+  font-family: 'Segoe UI', 'Arial', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
 .table-header {
@@ -61,6 +63,7 @@
   width: 100%;
   border-collapse: collapse;
   font-size: 14px;
+  font-family: inherit;
 }
 
 .data-table th {
@@ -73,6 +76,19 @@
   top: 0;
   z-index: 1;
   border-bottom: 2px solid #495057;
+  font-family: inherit;
+}
+
+
+.data-table th.center, .data-table td.center {
+  text-align: center;
+}
+.data-table th.currency, .data-table td.currency,
+.data-table th.points, .data-table td.points {
+  text-align: right;
+}
+.data-table th.date, .data-table td.date {
+  text-align: left;
 }
 
 .data-table th.sortable {
@@ -93,6 +109,7 @@
   padding: 12px 15px;
   border-bottom: 1px solid #e9ecef;
   vertical-align: top;
+  font-family: inherit;
 }
 
 .data-table tr:nth-child(even) {
@@ -116,7 +133,6 @@
 }
 
 .data-table td.date {
-  font-family: 'Courier New', monospace;
   font-size: 13px;
 }
 
