@@ -7,15 +7,15 @@ import './Table.css';
 
 const ROWS_PER_PAGE = 5;
 
-const Table = ({ 
-  data, 
-  columns, 
-  title, 
-  isLoading = false, 
+const Table = ({
+  data,
+  columns,
+  title,
+  isLoading = false,
   error = null,
   enableFilter = true,
   enableSort = true,
-  className = '' 
+  className = ''
 }) => {
   const [filterText, setFilterText] = useState('');
   const [sortConfig, setSortConfig] = useState({ key: null, direction: 'asc' });
@@ -32,7 +32,7 @@ const Table = ({
     );
   }, [data, filterText, columns]);
 
-  
+
   React.useEffect(() => {
     setCurrentPage(1);
   }, [filterText]);
@@ -44,14 +44,14 @@ const Table = ({
     return [...filteredData].sort((a, b) => {
       const aValue = a[sortConfig.key];
       const bValue = b[sortConfig.key];
-     
+
       if (typeof aValue === 'number' && typeof bValue === 'number') {
         return sortConfig.direction === 'asc' ? aValue - bValue : bValue - aValue;
       }
       if (aValue instanceof Date && bValue instanceof Date) {
         return sortConfig.direction === 'asc' ? aValue - bValue : bValue - aValue;
       }
-      
+
       const aStr = aValue ? aValue.toString().toLowerCase() : '';
       const bStr = bValue ? bValue.toString().toLowerCase() : '';
       if (sortConfig.direction === 'asc') {
@@ -62,7 +62,7 @@ const Table = ({
     });
   }, [filteredData, sortConfig]);
 
-  
+
   const totalPages = Math.ceil(sortedData.length / ROWS_PER_PAGE) || 1;
   const paginatedData = useMemo(() => {
     const startIdx = (currentPage - 1) * ROWS_PER_PAGE;
@@ -79,13 +79,13 @@ const Table = ({
     }));
   };
 
-  
+
   const getSortIndicator = (columnKey) => {
     if (!enableSort) return null;
     if (sortConfig.key === columnKey) {
       return sortConfig.direction === 'asc' ? ' ▲' : ' ▼';
     }
-   
+
     return ' ⇅';
   };
 
@@ -129,7 +129,7 @@ const Table = ({
           <div className="table-info">
             <p>Showing {sortedData.length} of {data.length} records</p>
           </div>
-          
+
           <div className="table-wrapper">
             <table className="data-table">
               <thead>

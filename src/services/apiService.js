@@ -1,64 +1,45 @@
 
 
-import axios from 'axios';
+
 import logger from '../utils/logger';
 
 const BASE_URL = 'http://localhost:3001';
 
+// Helper for GET requests
+const get = async (endpoint) => {
+  try {
+    const response = await fetch(`${BASE_URL}${endpoint}`);
+    logger.apiCall('get', endpoint, response);
+    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+    return await response.json();
+  } catch (error) {
+    logger.error(`Error fetching ${endpoint}`, error);
+    throw error;
+  }
+};
 
-const api = axios.create({
-  baseURL: BASE_URL,
-  timeout: 10000,
-  headers: {
-    'Content-Type': 'application/json',
-  },
-});
 
 /**
  * Fetch all transactions from the API
  * @returns {Promise<Array>} - Promise resolving to transactions array
  */
-export const fetchTransactions = async () => {
-  try {
-    const response = await api.get('/transactions');
-    logger.apiCall('get', '/transactions', response);
-    return response.data;
-  } catch (error) {
-    logger.error('Error fetching transactions', error);
-    throw new Error('Failed to fetch transactions. Please check if the server is running.');
-  }
-};
+export const fetchTransactions = () => get('/transactions');
+
 
 /**
  * Fetch all customers from the API
  * @returns {Promise<Array>} - Promise resolving to customers array
  */
-export const fetchCustomers = async () => {
-  try {
-    const response = await api.get('/customers');
-    logger.apiCall('get', '/customers', response);
-    return response.data;
-  } catch (error) {
-  logger.error('Error fetching customers', error);
-  throw new Error('Failed to fetch customers. Please check if the server is running.');
-  }
-};
+export const fetchCustomers = () => get('/customers');
+
 
 /**
  * Fetch transactions for a specific customer
  * @param {string} customerId - Customer ID
  * @returns {Promise<Array>} - Promise resolving to transactions array
  */
-export const fetchTransactionsByCustomer = async (customerId) => {
-  try {
-    const response = await api.get(`/transactions?customerId=${customerId}`);
-    logger.apiCall('get', `/transactions?customerId=${customerId}`, response);
-    return response.data;
-  } catch (error) {
-  logger.error('Error fetching transactions by customer', error);
-  throw new Error('Failed to fetch customer transactions.');
-  }
-};
+export const fetchTransactionsByCustomer = (customerId) => get(`/transactions?customerId=${customerId}`);
+
 
 /**
  * Health check for the API server
@@ -66,13 +47,11 @@ export const fetchTransactionsByCustomer = async (customerId) => {
  */
 export const checkServerHealth = async () => {
   try {
-    const response = await api.get('/transactions?_limit=1');
-    logger.apiCall('get', '/transactions?_limit=1', response);
+    await get('/transactions?_limit=1');
     return true;
   } catch (error) {
-  logger.error('Server health check failed', error);
-  return false;
+    logger.error('Server health check failed', error);
+    return false;
   }
 };
 
-export default api;

@@ -1,6 +1,6 @@
 
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect } from 'react';
 import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
 import MonthlyRewardsTable from './components/MonthlyRewardsTable/MonthlyRewardsTable';
@@ -26,7 +26,7 @@ const App = () => {
   const [serverStatus, setServerStatus] = useState(false);
 
 
-  const checkServer = useCallback(async () => {
+  const checkServer = async () => {
     try {
       const isHealthy = await checkServerHealth();
       setServerStatus(isHealthy);
@@ -35,10 +35,10 @@ const App = () => {
       setServerStatus(false);
       return false;
     }
-  }, []);
+  };
 
 
-  const loadData = useCallback(async () => {
+  const loadData = async () => {
     try {
       setIsLoading(true);
       setError(null);
@@ -46,26 +46,18 @@ const App = () => {
 
       logger.info('Starting data load process');
 
-
       const isServerHealthy = await checkServer();
       if (!isServerHealthy) {
         throw new Error('Unable to connect to the server. Please ensure the JSON server is running on port 3001.');
       }
 
-
       const transactionsData = await fetchTransactions();
       logger.info('Transactions fetched successfully', { count: transactionsData.length });
 
-
       const processedTransactions = processTransactions(transactionsData);
-
-
       const sortedTransactions = sortTransactionsByDate(processedTransactions);
-
-
       const monthlyData = calculateMonthlyRewards(processedTransactions);
       const totalData = calculateTotalRewards(processedTransactions);
-
 
       setTransactions(sortedTransactions);
       setMonthlyRewards(monthlyData);
@@ -81,13 +73,12 @@ const App = () => {
     } finally {
       setIsLoading(false);
     }
-  }, [checkServer]);
+  };
 
 
   useEffect(() => {
     logger.info('App component mounted');
     loadData();
-
 
     const healthCheckInterval = setInterval(checkServer, 30000);
 
@@ -95,7 +86,7 @@ const App = () => {
       clearInterval(healthCheckInterval);
       logger.info('App component unmounted');
     };
-  }, [loadData, checkServer]);
+  }, []);
 
 
   const handleRetry = () => {
@@ -106,29 +97,7 @@ const App = () => {
 
 
 
-  const renderMonthlyRewardsTable = useCallback(() => (
-    <MonthlyRewardsTable
-      data={monthlyRewards}
-      isLoading={isLoading}
-      error={error}
-    />
-  ), [monthlyRewards, isLoading, error]);
 
-  const renderTotalRewardsTable = useCallback(() => (
-    <TotalRewardsTable
-      data={totalRewards}
-      isLoading={isLoading}
-      error={error}
-    />
-  ), [totalRewards, isLoading, error]);
-
-  const renderTransactionsTable = useCallback(() => (
-    <TransactionsTable
-      data={transactions}
-      isLoading={isLoading}
-      error={error}
-    />
-  ), [transactions, isLoading, error]);
 
 
   if (error) {
@@ -170,15 +139,27 @@ const App = () => {
         <div className="container">
           {/* Monthly Rewards Table */}
           <section className="dashboard-section">
-            {renderMonthlyRewardsTable()}
+            <MonthlyRewardsTable
+              data={monthlyRewards}
+              isLoading={isLoading}
+              error={error}
+            />
           </section>
           {/* Total Rewards Table */}
           <section className="dashboard-section">
-            {renderTotalRewardsTable()}
+            <TotalRewardsTable
+              data={totalRewards}
+              isLoading={isLoading}
+              error={error}
+            />
           </section>
           {/* Transactions Table */}
           <section className="dashboard-section">
-            {renderTransactionsTable()}
+            <TransactionsTable
+              data={transactions}
+              isLoading={isLoading}
+              error={error}
+            />
           </section>
         </div>
       </main>
