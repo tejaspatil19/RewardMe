@@ -94,12 +94,6 @@ const App = () => {
     loadData();
   };
 
-
-
-
-
-
-
   if (error) {
     return (
       <div className="App">
