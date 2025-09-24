@@ -1,6 +1,6 @@
 
 
-import React, { useState, useMemo } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import './Table.css';
 
@@ -22,52 +22,45 @@ const Table = ({
   const [currentPage, setCurrentPage] = useState(1);
 
 
-  const filteredData = useMemo(() => {
-    if (!filterText.trim()) return data;
-    return data.filter(item =>
+
+  // Filtering
+  let filteredData = data;
+  if (filterText.trim()) {
+    filteredData = data.filter(item =>
       columns.some(column => {
         const value = item[column.key];
         return value && value.toString().toLowerCase().includes(filterText.toLowerCase());
       })
     );
-  }, [data, filterText, columns]);
+  }
 
-
-  React.useEffect(() => {
+  // Reset page when filter changes
+  useEffect(() => {
     setCurrentPage(1);
   }, [filterText]);
 
-
-
-  const sortedData = useMemo(() => {
-    if (!sortConfig.key) return filteredData;
-    return [...filteredData].sort((a, b) => {
+  // Sorting
+  let sortedData = filteredData;
+  if (sortConfig.key) {
+    sortedData = [...filteredData].sort((a, b) => {
       const aValue = a[sortConfig.key];
       const bValue = b[sortConfig.key];
 
       if (typeof aValue === 'number' && typeof bValue === 'number') {
         return sortConfig.direction === 'asc' ? aValue - bValue : bValue - aValue;
       }
-      if (aValue instanceof Date && bValue instanceof Date) {
-        return sortConfig.direction === 'asc' ? aValue - bValue : bValue - aValue;
-      }
-
       const aStr = aValue ? aValue.toString().toLowerCase() : '';
       const bStr = bValue ? bValue.toString().toLowerCase() : '';
-      if (sortConfig.direction === 'asc') {
-        return aStr.localeCompare(bStr);
-      } else {
-        return bStr.localeCompare(aStr);
-      }
+      return sortConfig.direction === 'asc'
+        ? aStr.localeCompare(bStr)
+        : bStr.localeCompare(aStr);
     });
-  }, [filteredData, sortConfig]);
+  }
 
-
+  // Pagination
   const totalPages = Math.ceil(sortedData.length / ROWS_PER_PAGE) || 1;
-  const paginatedData = useMemo(() => {
-    const startIdx = (currentPage - 1) * ROWS_PER_PAGE;
-    return sortedData.slice(startIdx, startIdx + ROWS_PER_PAGE);
-  }, [sortedData, currentPage]);
+  const startIdx = (currentPage - 1) * ROWS_PER_PAGE;
+  const paginatedData = sortedData.slice(startIdx, startIdx + ROWS_PER_PAGE);
 
 
   const handleSort = (columnKey) => {

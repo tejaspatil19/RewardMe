@@ -71,38 +71,42 @@
       "productPurchased": "Automotive - Oil Change",
       "price": 60.00,
       "rewardPoints": 10
-    }
-  ],
-  "customers": [
-    {
-      "id": "CUST001",
-      "name": "John Smith",
-      "email": "john.smith@email.com",
-      "joinDate": "2023-01-15"
     },
     {
-      "id": "CUST002",
-      "name": "Sarah Johnson",
-      "email": "sarah.johnson@email.com",
-      "joinDate": "2023-03-22"
+      "id": "TXN1011",
+      "customerId": "CUST006",
+      "customerName": "Priya Patel",
+      "purchaseDate": "2025-05-15",
+      "productPurchased": "Beauty - Skincare Set",
+      "price": 120.00,
+      "rewardPoints": 180
     },
     {
-      "id": "CUST003",
-      "name": "Michael Brown",
-      "email": "michael.brown@email.com",
-      "joinDate": "2023-05-10"
+      "id": "TXN1012",
+      "customerId": "CUST007",
+      "customerName": "Alex Kim",
+      "purchaseDate": "2025-06-02",
+      "productPurchased": "Sports - Tennis Racket",
+      "price": 150.00,
+      "rewardPoints": 225
     },
     {
-      "id": "CUST004",
-      "name": "Emily Davis",
-      "email": "emily.davis@email.com",
-      "joinDate": "2023-07-18"
+      "id": "TXN1013",
+      "customerId": "CUST008",
+      "customerName": "Linda Garcia",
+      "purchaseDate": "2025-06-10",
+      "productPurchased": "Groceries - Organic Fruits",
+      "price": 45.00,
+      "rewardPoints": 5
     },
     {
-      "id": "CUST005",
-      "name": "David Wilson",
-      "email": "david.wilson@email.com",
-      "joinDate": "2023-09-05"
+      "id": "TXN1014",
+      "customerId": "CUST009",
+      "customerName": "Mohammed Khan",
+      "purchaseDate": "2025-06-18",
+      "productPurchased": "Travel - Suitcase",
+      "price": 200.00,
+      "rewardPoints": 300
     }
   ]
 }

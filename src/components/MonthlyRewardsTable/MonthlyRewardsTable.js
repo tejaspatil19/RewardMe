@@ -1,5 +1,5 @@
 
-import React, { useMemo } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import Table from '../Table/Table';
 
@@ -31,15 +31,14 @@ const MonthlyRewardsTable = ({ data, isLoading, error }) => {
     }
   ];
 
-  // Memoize and sort data alphabetically by customerName
-  const sortedData = useMemo(() => {
-    if (!Array.isArray(data)) return [];
-    return [...data].sort((a, b) => {
-      const nameA = a.customerName ? a.customerName.toLowerCase() : '';
-      const nameB = b.customerName ? b.customerName.toLowerCase() : '';
-      return nameA.localeCompare(nameB);
-    });
-  }, [data]);
+  // Sort data alphabetically by customerName
+  const sortedData = Array.isArray(data)
+    ? [...data].sort((a, b) => {
+        const nameA = a.customerName ? a.customerName.toLowerCase() : '';
+        const nameB = b.customerName ? b.customerName.toLowerCase() : '';
+        return nameA.localeCompare(nameB);
+      })
+    : [];
 
   return (
     <Table

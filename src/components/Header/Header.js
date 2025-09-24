@@ -11,14 +11,6 @@ const Header = ({ serverStatus }) => {
           <h1 className="app-title">RewardMe</h1>
           <p className="app-subtitle">Customer Rewards Program Dashboard</p>
         </div>
-        <div className="header-right">
-          <div className={`server-status ${serverStatus ? 'online' : 'offline'}`}>
-            <div className="status-indicator" />
-            <span className="status-text">
-              Server {serverStatus ? 'Online' : 'Offline'}
-            </span>
-          </div>
-        </div>
       </div>
     </header>
   );
