@@ -9,6 +9,6 @@ RewardMe is a customer rewards program dashboard that helps retailers track and 
 
 Actual Output :-
 
-![App Screenshot](public/docs/S1.png)
+![App Screenshot](public/docs/Output1.png)
 
-![App Screenshot](public/docs/S2.png)
+![App Screenshot](public/docs/output2.png)
