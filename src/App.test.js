@@ -19,8 +19,7 @@ describe('App Component', () => {
   });
 
   test('renders app header', async () => {
-    // Mock successful API calls
-    apiService.checkServerHealth.mockResolvedValue(true);
+    // Mock successful API call
     apiService.fetchTransactions.mockResolvedValue(mockTransactions);
 
     await act(async () => {
@@ -32,8 +31,7 @@ describe('App Component', () => {
   });
 
   test('displays loading state initially', async () => {
-    // Mock pending API calls
-    apiService.checkServerHealth.mockImplementation(() => new Promise(() => {}));
+    // Mock pending API call
     apiService.fetchTransactions.mockImplementation(() => new Promise(() => {}));
 
     await act(async () => {
@@ -43,23 +41,8 @@ describe('App Component', () => {
     expect(screen.getAllByText('Loading data...')).toHaveLength(3); // Three tables loading
   });
 
-  test('displays error when server is offline', async () => {
-    // Mock server offline
-    apiService.checkServerHealth.mockResolvedValue(false);
-
-    await act(async () => {
-      render(<App />);
-    });
-
-    await waitFor(() => {
-      expect(screen.getByText('Unable to Load Data')).toBeInTheDocument();
-      expect(screen.getByText(/Unable to connect to the server/)).toBeInTheDocument();
-    });
-  });
-
   test('displays error when API call fails', async () => {
-    // Mock server online but API call fails
-    apiService.checkServerHealth.mockResolvedValue(true);
+    // Mock API call fails
     apiService.fetchTransactions.mockRejectedValue(new Error('Network error'));
 
     await act(async () => {
@@ -67,14 +50,15 @@ describe('App Component', () => {
     });
 
     await waitFor(() => {
-      expect(screen.getByText('Unable to Load Data')).toBeInTheDocument();
-      expect(screen.getByText('Network error')).toBeInTheDocument();
+      // Should show error message in at least one table
+      expect(screen.getAllByText(/Error loading data:/i).length).toBeGreaterThan(0);
+      expect(screen.getAllByText(/Network error/i).length).toBeGreaterThan(0);
     });
   });
 
+
   test('successfully loads and displays data', async () => {
-    // Mock successful API calls
-    apiService.checkServerHealth.mockResolvedValue(true);
+    // Mock successful API call
     apiService.fetchTransactions.mockResolvedValue(mockTransactions);
 
     await act(async () => {
@@ -93,23 +77,8 @@ describe('App Component', () => {
     });
   });
 
-  test('displays server status correctly', async () => {
-    // Mock server online
-    apiService.checkServerHealth.mockResolvedValue(true);
-    apiService.fetchTransactions.mockResolvedValue(mockTransactions);
-
-    await act(async () => {
-      render(<App />);
-    });
-
-    await waitFor(() => {
-      expect(screen.getByText('Server Online')).toBeInTheDocument();
-    });
-  });
-
   test('renders footer', async () => {
-    // Mock successful API calls
-    apiService.checkServerHealth.mockResolvedValue(true);
+    // Mock successful API call
     apiService.fetchTransactions.mockResolvedValue(mockTransactions);
 
     await act(async () => {
