@@ -1,7 +1,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import Table from '../Table/Table';
+import ComTable from '../Table/ComTable';
 
 const MonthlyRewardsTable = ({ data, isLoading, error }) => {
   const columns = [
@@ -41,15 +41,15 @@ const MonthlyRewardsTable = ({ data, isLoading, error }) => {
     : [];
 
   return (
-    <Table
-      data={sortedData}
-      columns={columns}
-      title="User Monthly Rewards"
-      isLoading={isLoading}
-      error={error}
-      enableFilter
-      enableSort
-      className="monthly-rewards-table"
+    <ComTable
+        data={sortedData}
+        columns={columns}
+        title="User Monthly Rewards"
+        isLoading={isLoading}
+        error={error}
+        enableFilter
+        enableSort
+        className="monthly-rewards-table"
     />
   );
 };

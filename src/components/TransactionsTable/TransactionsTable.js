@@ -2,7 +2,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import Table from '../Table/Table';
+import ComTable from '../Table/ComTable';
 
 const TransactionsTable = ({ data, isLoading, error }) => {
   const columns = [
@@ -47,15 +47,15 @@ const TransactionsTable = ({ data, isLoading, error }) => {
   ];
 
   return (
-    <Table
-      data={data}
-      columns={columns}
-      title="Transactions"
-      isLoading={isLoading}
-      error={error}
-      enableFilter
-      enableSort
-      className="transactions-table"
+    <ComTable
+        data={data}
+        columns={columns}
+        title="Transactions"
+        isLoading={isLoading}
+        error={error}
+        enableFilter
+        enableSort
+        className="transactions-table"
     />
   );
 };

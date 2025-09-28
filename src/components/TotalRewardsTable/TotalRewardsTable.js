@@ -2,7 +2,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import Table from '../Table/Table';
+import ComTable from '../Table/ComTable';
 
 const TotalRewardsTable = ({ data, isLoading, error }) => {
   const columns = [
@@ -19,15 +19,15 @@ const TotalRewardsTable = ({ data, isLoading, error }) => {
   ];
 
   return (
-    <Table
-      data={data}
-      columns={columns}
-      title="Total Rewards"
-      isLoading={isLoading}
-      error={error}
-      enableFilter
-      enableSort
-      className="total-rewards-table"
+    <ComTable
+        data={data}
+        columns={columns}
+        title="Total Rewards"
+        isLoading={isLoading}
+        error={error}
+        enableFilter
+        enableSort
+        className="total-rewards-table"
     />
   );
 };
