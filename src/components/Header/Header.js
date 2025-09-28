@@ -3,7 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './Header.css';
 
-const Header = ({ serverStatus }) => {
+const Header = () => {
   return (
     <header className="app-header">
       <div className="header-content">
@@ -16,12 +16,5 @@ const Header = ({ serverStatus }) => {
   );
 };
 
-Header.propTypes = {
-  serverStatus: PropTypes.bool
-};
-
-Header.defaultProps = {
-  serverStatus: false
-};
 
 export default Header;
