@@ -2,14 +2,12 @@ import { useState, useEffect } from 'react';
 import MonthlyRewardsTable from '../MonthlyRewardsTable/MonthlyRewardsTable';
 import TotalRewardsTable from '../TotalRewardsTable/TotalRewardsTable';
 import TransactionsTable from '../TransactionsTable/TransactionsTable';
-import { fetchTransactions } from '../../services/apiService';
 import {
   calculateMonthlyRewards,
   calculateTotalRewards,
   processTransactions,
   sortTransactionsByDate
 } from '../../utils/rewardCalculations';
-import logger from '../../utils/logger';
 import { Box, Container, Typography, Divider } from '@mui/material';
 
 const Dashboard = () => {
@@ -19,28 +17,23 @@ const Dashboard = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const loadData = async () => {
+  useEffect(() => {
     setIsLoading(true);
     setError(null);
-    try {
-      const transactionsData = await fetchTransactions();
-      const processedTransactions = processTransactions(transactionsData);
-      setTransactions(sortTransactionsByDate(processedTransactions));
-      setMonthlyRewards(calculateMonthlyRewards(processedTransactions));
-      setTotalRewards(calculateTotalRewards(processedTransactions));
-    } catch (err) {
-      setError(err.message);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    logger.info('Dashboard mounted');
-    loadData();
-    return () => {
-      logger.info('Dashboard unmounted');
-    };
+    fetch('./db.json')
+      .then((resp) => {
+        if (!resp.ok) throw new Error('Failed to fetch db.json');
+        return resp.json();
+      })
+      .then((data) => {
+        const transactionsData = data.transactions || [];
+        const processedTransactions = processTransactions(transactionsData);
+        setTransactions(sortTransactionsByDate(processedTransactions));
+        setMonthlyRewards(calculateMonthlyRewards(processedTransactions));
+        setTotalRewards(calculateTotalRewards(processedTransactions));
+      })
+      .catch((err) => setError(err.message))
+      .finally(() => setIsLoading(false));
   }, []);
 
   return (

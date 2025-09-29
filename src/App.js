@@ -1,31 +1,22 @@
 
-import { useState, useEffect } from 'react';
 import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
-import { fetchTransactions } from './services/apiService';
-import {
-  calculateMonthlyRewards,
-  calculateTotalRewards,
-  processTransactions,
-  sortTransactionsByDate
-} from './utils/rewardCalculations';
-import logger from './utils/logger';
-import './App.css';
-
+import CssBaseline from '@mui/material/CssBaseline';
+import Box from '@mui/material/Box';
 import Dashboard from './components/Dashboard/Dashboard';
 
-const App = () => {
 
-  return (
-    <div className="App">
+const App = () => (
+  <>
+    <CssBaseline />
+    <Box className="App" minHeight="100vh" display="flex" flexDirection="column">
       <Header />
-      <main className="main-content">
+      <Box component="main" flex={1} py={2}>
         <Dashboard />
-      </main>
+      </Box>
       <Footer />
-    </div>
-  );
-
-};
+    </Box>
+  </>
+);
 
 export default App;
