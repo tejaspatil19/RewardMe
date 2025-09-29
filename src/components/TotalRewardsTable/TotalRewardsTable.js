@@ -20,14 +20,13 @@ const TotalRewardsTable = ({ data, isLoading, error }) => {
 
   return (
     <ComTable
-        data={data}
-        columns={columns}
-        title="Total Rewards"
-        isLoading={isLoading}
-        error={error}
-        enableFilter
-        enableSort
-        className="total-rewards-table"
+      data={data}
+      columns={columns}
+      title="Total Rewards"
+      isLoading={isLoading}
+      error={error}
+      enableFilter
+      enableSort
     />
   );
 };

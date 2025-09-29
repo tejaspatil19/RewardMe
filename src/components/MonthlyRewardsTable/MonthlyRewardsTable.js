@@ -34,22 +34,21 @@ const MonthlyRewardsTable = ({ data, isLoading, error }) => {
   // Sort data alphabetically by customerName
   const sortedData = Array.isArray(data)
     ? [...data].sort((a, b) => {
-        const nameA = a.customerName ? a.customerName.toLowerCase() : '';
-        const nameB = b.customerName ? b.customerName.toLowerCase() : '';
-        return nameA.localeCompare(nameB);
-      })
+      const nameA = a.customerName ? a.customerName.toLowerCase() : '';
+      const nameB = b.customerName ? b.customerName.toLowerCase() : '';
+      return nameA.localeCompare(nameB);
+    })
     : [];
 
   return (
     <ComTable
-        data={sortedData}
-        columns={columns}
-        title="User Monthly Rewards"
-        isLoading={isLoading}
-        error={error}
-        enableFilter
-        enableSort
-        className="monthly-rewards-table"
+      data={sortedData}
+      columns={columns}
+      title="User Monthly Rewards"
+      isLoading={isLoading}
+      error={error}
+      enableFilter
+      enableSort
     />
   );
 };
