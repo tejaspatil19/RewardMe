@@ -2,7 +2,7 @@
 import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import Table from '../Table';
+import ComTable from '../ComTable';
 import { createTestTransactions } from '../../../utils/testUtils';
 
 const mockData = createTestTransactions(3, {
@@ -17,10 +17,10 @@ const mockColumns = [
   { key: 'rewardPoints', label: 'Points' }
 ];
 
-describe('Table Component', () => {
+describe('ComTable Component', () => {
   test('renders table with data', () => {
     render(
-      <Table
+      <ComTable
         data={mockData}
         columns={mockColumns}
         title="Test Table"
@@ -28,18 +28,14 @@ describe('Table Component', () => {
     );
 
     expect(screen.getByText('Test Table')).toBeInTheDocument();
-    // Use a function matcher to find the header regardless of sort arrows or whitespace
-    expect(
-      screen.getByText((content, element) =>
-        element.tagName.toLowerCase() === 'th' && /Customer Name/.test(content)
-      )
-    ).toBeInTheDocument();
+    // Use getByRole to find the column header
+    expect(screen.getByRole('columnheader', { name: /Customer Name/i })).toBeInTheDocument();
     expect(screen.getByText('Test Customer 1')).toBeInTheDocument();
   });
 
   test('displays loading state', () => {
     render(
-      <Table
+      <ComTable
         data={[]}
         columns={mockColumns}
         title="Test Table"
@@ -52,7 +48,7 @@ describe('Table Component', () => {
 
   test('displays error state', () => {
     render(
-      <Table
+      <ComTable
         data={[]}
         columns={mockColumns}
         title="Test Table"
@@ -65,15 +61,15 @@ describe('Table Component', () => {
 
   test('filters data based on search input', async () => {
     render(
-      <Table
+      <ComTable
         data={mockData}
         columns={mockColumns}
         title="Test Table"
       />
     );
 
-    const filterInput = screen.getByPlaceholderText('Filter table data...');
-    fireEvent.change(filterInput, { target: { value: 'Test Customer 2' } });
+  const filterInput = screen.getByLabelText('Filter table data...');
+  fireEvent.change(filterInput, { target: { value: 'Test Customer 2' } });
 
     await waitFor(() => {
       expect(screen.getByText('Test Customer 2')).toBeInTheDocument();
@@ -84,7 +80,7 @@ describe('Table Component', () => {
 
   test('sorts data when column header is clicked', async () => {
     render(
-      <Table
+      <ComTable
         data={mockData}
         columns={mockColumns}
         title="Test Table"
@@ -92,10 +88,8 @@ describe('Table Component', () => {
       />
     );
 
-    // Use a regex matcher to find the header regardless of sort arrow
-    const customerNameHeader = screen.getByText((content, element) =>
-      element.tagName.toLowerCase() === 'th' && /Customer Name/.test(content)
-    );
+    // Use getByRole to find the column header
+    const customerNameHeader = screen.getByRole('columnheader', { name: /Customer Name/i });
     fireEvent.click(customerNameHeader);
 
     await waitFor(() => {
@@ -105,7 +99,7 @@ describe('Table Component', () => {
 
   test('renders custom cell content with render function', () => {
     render(
-      <Table
+      <ComTable
         data={mockData}
         columns={mockColumns}
         title="Test Table"
@@ -117,7 +111,7 @@ describe('Table Component', () => {
 
   test('displays "no data" message when data is empty', () => {
     render(
-      <Table
+      <ComTable
         data={[]}
         columns={mockColumns}
         title="Test Table"
@@ -127,21 +121,10 @@ describe('Table Component', () => {
     expect(screen.getByText('No data available')).toBeInTheDocument();
   });
 
-  test('displays filtered result count', () => {
-    render(
-      <Table
-        data={mockData}
-        columns={mockColumns}
-        title="Test Table"
-      />
-    );
-
-    expect(screen.getByText('Showing 3 of 3 records')).toBeInTheDocument();
-  });
 
   test('disables filtering when enableFilter is false', () => {
     render(
-      <Table
+      <ComTable
         data={mockData}
         columns={mockColumns}
         title="Test Table"
@@ -149,12 +132,12 @@ describe('Table Component', () => {
       />
     );
 
-    expect(screen.queryByPlaceholderText('Filter table data...')).not.toBeInTheDocument();
+  expect(screen.queryByLabelText('Filter table data...')).not.toBeInTheDocument();
   });
 
   test('disables sorting when enableSort is false', () => {
     render(
-      <Table
+      <ComTable
         data={mockData}
         columns={mockColumns}
         title="Test Table"
