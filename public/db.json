@@ -4,7 +4,7 @@
       "id": "TXN1003",
       "customerId": "CUST003",
       "customerName": "Michael Brown",
-      "purchaseDate": "2025-03-05",
+      "purchaseDate": "2025-07-05",
       "productPurchased": "Clothing - Suit",
       "price": 350.00,
       "rewardPoints": 550
@@ -13,7 +13,7 @@
       "id": "TXN1004",
       "customerId": "CUST004",
       "customerName": "Emily Davis",
-      "purchaseDate": "2025-04-22",
+      "purchaseDate": "2025-08-22",
       "productPurchased": "Books - Science Fiction",
       "price": 65.00,
       "rewardPoints": 15
@@ -22,7 +22,7 @@
       "id": "TXN1005",
       "customerId": "CUST005",
       "customerName": "David Wilson",
-      "purchaseDate": "2025-05-30",
+      "purchaseDate": "2025-09-30",
       "productPurchased": "Automotive - Tires",
       "price": 480.00,
       "rewardPoints": 810
@@ -31,7 +31,7 @@
       "id": "TXN1006",
       "customerId": "CUST001",
       "customerName": "John Smith",
-      "purchaseDate": "2025-03-18",
+      "purchaseDate": "2025-07-18",
       "productPurchased": "Electronics - Smartwatch",
       "price": 199.99,
       "rewardPoints": 249
@@ -40,7 +40,7 @@
       "id": "TXN1007",
       "customerId": "CUST002",
       "customerName": "Sarah Johnson",
-      "purchaseDate": "2025-04-10",
+      "purchaseDate": "2025-08-10",
       "productPurchased": "Home & Garden - Patio Set",
       "price": 420.00,
       "rewardPoints": 690
@@ -49,7 +49,7 @@
       "id": "TXN1008",
       "customerId": "CUST003",
       "customerName": "Michael Brown",
-      "purchaseDate": "2025-05-12",
+      "purchaseDate": "2025-09-12",
       "productPurchased": "Clothing - Shoes",
       "price": 85.00,
       "rewardPoints": 35
@@ -58,7 +58,7 @@
       "id": "TXN1009",
       "customerId": "CUST004",
       "customerName": "Emily Davis",
-      "purchaseDate": "2025-03-27",
+      "purchaseDate": "2025-07-27",
       "productPurchased": "Books - Nonfiction",
       "price": 55.00,
       "rewardPoints": 5
@@ -67,7 +67,7 @@
       "id": "TXN1010",
       "customerId": "CUST005",
       "customerName": "David Wilson",
-      "purchaseDate": "2025-04-30",
+      "purchaseDate": "2025-08-30",
       "productPurchased": "Automotive - Oil Change",
       "price": 60.00,
       "rewardPoints": 10
@@ -76,7 +76,7 @@
       "id": "TXN1011",
       "customerId": "CUST006",
       "customerName": "Priya Patel",
-      "purchaseDate": "2025-05-15",
+      "purchaseDate": "2025-09-15",
       "productPurchased": "Beauty - Skincare Set",
       "price": 120.00,
       "rewardPoints": 180
