@@ -10,7 +10,7 @@ import {
 } from '../../utils/rewardCalculations';
 import { Box, Container, Typography, Divider } from '@mui/material';
 
-const Dashboard = () => {
+const TableContainer = () => {
   const [transactions, setTransactions] = useState([]);
   const [monthlyRewards, setMonthlyRewards] = useState([]);
   const [totalRewards, setTotalRewards] = useState([]);
@@ -70,4 +70,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default TableContainer;
