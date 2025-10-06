@@ -95,7 +95,7 @@ const ComTable = ({
       <Typography variant="h6" gutterBottom>{title}</Typography>
       {enableFilter && (
         <TextField
-          label="Filter table data..."
+          label="Filter by customer name"
           variant="outlined"
           size="small"
           value={filterText}

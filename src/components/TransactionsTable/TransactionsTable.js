@@ -1,6 +1,5 @@
 
 
-import React from 'react';
 import PropTypes from 'prop-types';
 import ComTable from '../Table/ComTable';
 
@@ -48,14 +47,14 @@ const TransactionsTable = ({ data, isLoading, error }) => {
 
   return (
     <ComTable
-        data={data}
-        columns={columns}
-        title="Transactions"
-        isLoading={isLoading}
-        error={error}
-        enableFilter
-        enableSort
-        className="transactions-table"
+      data={data}
+      columns={columns}
+      title="Transactions"
+      isLoading={isLoading}
+      error={error}
+      enableFilter
+      enableSort
+      className="transactions-table"
     />
   );
 };
