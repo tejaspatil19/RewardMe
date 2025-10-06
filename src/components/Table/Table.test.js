@@ -2,8 +2,8 @@
 import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import ComTable from '../ComTable';
-import { createTestTransactions } from '../../../utils/testUtils';
+import ComTable from './ComTable';
+import { createTestTransactions } from '../../utils/testUtils';
 
 const mockData = createTestTransactions(3, {
   price: 120.00,

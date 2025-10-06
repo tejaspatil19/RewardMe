@@ -14,8 +14,8 @@ import {
   filterTransactionsByDateRange,
   getUniqueCustomers,
   getUniqueMonths
-} from '../rewardCalculations';
-import { mockTransactions, edgeTestCases, createTestTransaction } from '../testUtils';
+} from './rewardCalculations';
+import { mockTransactions, edgeTestCases, createTestTransaction } from './testUtils';
 
 describe('calculateRewardPoints', () => {
   test('should calculate 0 points for purchases under $50', () => {

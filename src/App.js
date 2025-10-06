@@ -12,7 +12,7 @@ const App = () => (
     <Box className="App" minHeight="100vh" display="flex" flexDirection="column">
       <Header />
       <Box component="main" flex={1} py={2}>
-  <TableContainer />
+        <TableContainer />
       </Box>
       <Footer />
     </Box>
