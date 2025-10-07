@@ -68,7 +68,7 @@ describe('ComTable Component', () => {
       />
     );
 
-  const filterInput = screen.getByLabelText('Filter table data...');
+  const filterInput = screen.getByLabelText('Filter by customer name');
   fireEvent.change(filterInput, { target: { value: 'Test Customer 2' } });
 
     await waitFor(() => {
