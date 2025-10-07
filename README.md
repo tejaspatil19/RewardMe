@@ -11,4 +11,4 @@ Actual Output :-
 
 ![App Screenshot](public/Asset/Output1.png)
 
-![App Screenshot](public/asset/output2.png)
+![App Screenshot](public/Asset/output2.png)
